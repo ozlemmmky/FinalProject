@@ -1,5 +1,6 @@
 ﻿using Business.Concrete;
 using ConsoleUI;
+using Core.Utilities.Results;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 
@@ -13,13 +14,27 @@ namespace ConsoleUI
         {
             // ProductTest();
             // CategoryTest();
-
             ProductManager productManager = new ProductManager(new EfProductDal());
-            foreach(var product in productManager.GetProductDetails())
-            {
-                Console.WriteLine(product.ProductName + "/" + product.CategoryName);
 
+            var result = productManager.GetProductDetails();
+            if(result.Success==true)
+            {
+                foreach (var product in result.Data)
+                {
+                    Console.WriteLine(product.ProductName + "/" + product.CategoryName);
+
+                }
             }
+            else
+            {
+               Console.WriteLine(result.Message);
+            }
+           // ProductManager productManager = new ProductManager(new EfProductDal());
+            //foreach(var product in productManager.GetProductDetails().Data)
+            //{
+            //    Console.WriteLine(product.ProductName + "/" + product.CategoryName);
+
+            //}
 
         }
 
@@ -32,18 +47,18 @@ namespace ConsoleUI
             }
         }
 
-        private static void ProductTest()
-        {
-            ProductManager productManager = new ProductManager(new EfProductDal());
-            foreach (var product in productManager.GetAll())
-            {
-                Console.WriteLine(product.ProductName);
-            }
-            foreach (var product in productManager.GetAllByUnitPrice(500, 1000))
-            {
-                Console.WriteLine(product.ProductName);
-            }
-        }
+        //private static void ProductTest()
+        //{
+        //    ProductManager productManager = new ProductManager(new EfProductDal());
+        //    foreach (var product in productManager.GetAll())
+        //    {
+        //        Console.WriteLine(product.ProductName);
+        //    }
+        //    foreach (var product in productManager.GetAllByUnitPrice(500, 1000))
+        //    {
+        //        Console.WriteLine(product.ProductName);
+        //    }
+        //}
     }
 }
 
