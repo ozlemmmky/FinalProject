@@ -2,6 +2,8 @@
 
 namespace Core.Utilities.Interceptors
 {
+    //interceptor-> araya girme
+    //invocation-> Business methodu (Add Methodu gibi)
     public abstract class MethodInterception : MethodInterceptionBaseAttribute
     {
         protected virtual void OnBefore(IInvocation invocation) { }
